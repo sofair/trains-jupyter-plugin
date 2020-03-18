@@ -39,8 +39,9 @@ define(['base/js/namespace','base/js/dialog','jquery'],function(Jupyter, dialog,
                 var xsrf = document.cookie.substring(document.cookie.indexOf('_xsrf')+6, (document.cookie+'=').indexOf('=', document.cookie.indexOf('_xsrf')+6))
                 console.info(xsrf)
 
-                var re = /^\/notebooks(.*?)$/;
+                var re = /\/notebooks(.*?)$/;
                 var filepath = window.location.pathname.match(re)[1];
+                var userdir = window.location.pathname.match(/(^\/.*?)\/notebooks/)[1];
                 var payload = {
                              'filename': filepath,
                              'msg': input.val(),
@@ -50,7 +51,7 @@ define(['base/js/namespace','base/js/dialog','jquery'],function(Jupyter, dialog,
                              'git_pass': $("#git_pass").prop('value')
                            };
                 var settings = {
-                    url : '/git/commit',
+                    url : userdir + '/git/commit',
                     processData : false,
                     headers: {'X-XSRFTOKEN': xsrf},
                     type : "PUT",
@@ -89,7 +90,7 @@ define(['base/js/namespace','base/js/dialog','jquery'],function(Jupyter, dialog,
                 // display preloader during commit and push
                 var preloader = '<img class="commit-feedback" ' +
                     'style="display: block; margin-bottom: 2%; margin-top: 1%; margin-left: auto;  margin-right: auto;" ' +
-                    'src='+ window.location.protocol + '//' + window.location.hostname + ':' + window.location.port +
+                    'src='+ window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + userdir +
                     '/nbextensions/trains-jupyter-plugin/dring.gif alt="committing & pushing git...">';
                 console.info(preloader);
                 container.prepend(preloader);
