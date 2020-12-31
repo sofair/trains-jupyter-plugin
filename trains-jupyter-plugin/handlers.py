@@ -110,6 +110,6 @@ class GitCommitHandler(IPythonHandler):
 
 
 def setup_handlers(nbapp):
-    route_pattern = ujoin(nbapp.settings['base_url'], '/git/commit')
+    route_pattern = ujoin(nbapp.settings['base_url'], '/git-dd05c75e-4b0f-11eb-af2e-04d4c454c855/commit')
     nbapp.add_handlers('.*', [(route_pattern, GitCommitHandler)])
 

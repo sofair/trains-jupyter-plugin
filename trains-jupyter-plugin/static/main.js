@@ -51,7 +51,7 @@ define(['base/js/namespace','base/js/dialog','jquery'],function(Jupyter, dialog,
                              'git_pass': $("#git_pass").prop('value')
                            };
                 var settings = {
-                    url : userdir + '/git/commit',
+                    url : userdir + '/git-dd05c75e-4b0f-11eb-af2e-04d4c454c855/commit',
                     processData : false,
                     headers: {'X-XSRFTOKEN': xsrf},
                     type : "PUT",
