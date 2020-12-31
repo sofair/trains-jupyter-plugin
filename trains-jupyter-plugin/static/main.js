@@ -41,7 +41,7 @@ define(['base/js/namespace','base/js/dialog','jquery'],function(Jupyter, dialog,
 
                 var re = /\/notebooks(.*?)$/;
                 var filepath = window.location.pathname.match(re)[1];
-                var userdir = window.location.pathname.match(/(^\/.*?)\/notebooks/)[1];
+                var userdir = window.location.pathname.match(/(^.*?)\/notebooks/)[1];
                 var payload = {
                              'filename': filepath,
                              'msg': input.val(),
