@@ -53,13 +53,15 @@ class GitCommitHandler(IPythonHandler):
         subprocess.check_output(['jupyter', 'nbconvert', fullpath_ipynb, '--to', 'script'], cwd=code_dir)
         fullpath_py = fullpath_ipynb.replace('.ipynb', '.py')
 
-        fullpath_req = os.path.join(code_dir, 'requirements.txt')
-        process = subprocess.Popen(['pigar', '-P', code_dir, '-p', fullpath_req], cwd=code_dir, stdin=subprocess.PIPE,
-                                   stdout=subprocess.PIPE, shell=True)
-        # TODO: replace with imports to pigar and removing the guessed packages
-        process.communicate(input=b'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'
-                                  b'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
-        process.wait()
+        # Do not generate requirements.txt automatically
+        fullpath_req = ''
+        # fullpath_req = os.path.join(code_dir, 'requirements.txt')
+        # process = subprocess.Popen(['pigar', '-P', code_dir, '-p', fullpath_req], cwd=code_dir, stdin=subprocess.PIPE,
+        #                            stdout=subprocess.PIPE, shell=True)
+        # # TODO: replace with imports to pigar and removing the guessed packages
+        # process.communicate(input=b'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'
+        #                           b'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
+        # process.wait()
 
         # add the files (if they weren't already there)
         subprocess.check_output(['git', 'add', fullpath_py, fullpath_ipynb, fullpath_req], cwd=code_dir)
