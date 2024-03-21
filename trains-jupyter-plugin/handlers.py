@@ -54,7 +54,6 @@ class GitCommitHandler(IPythonHandler):
         fullpath_py = fullpath_ipynb.replace('.ipynb', '.py')
 
         # Do not generate requirements.txt automatically
-        fullpath_req = ''
         # fullpath_req = os.path.join(code_dir, 'requirements.txt')
         # process = subprocess.Popen(['pigar', '-P', code_dir, '-p', fullpath_req], cwd=code_dir, stdin=subprocess.PIPE,
         #                            stdout=subprocess.PIPE, shell=True)
@@ -64,10 +63,10 @@ class GitCommitHandler(IPythonHandler):
         # process.wait()
 
         # add the files (if they weren't already there)
-        subprocess.check_output(['git', 'add', fullpath_py, fullpath_ipynb, fullpath_req], cwd=code_dir)
+        subprocess.check_output(['git', 'add', fullpath_py, fullpath_ipynb], cwd=code_dir)
 
         # check if there is a change
-        git_status = subprocess.check_output(['git', 'status', '-s', fullpath_py, fullpath_ipynb, fullpath_req],
+        git_status = subprocess.check_output(['git', 'status', '-s', fullpath_py, fullpath_ipynb],
                                              cwd=code_dir, universal_newlines=True).strip()
         # print('git_diff', git_diff)
         if not git_status or '\nA  ' not in '\n'+git_status and '\nM  ' not in '\n'+git_status:
@@ -78,7 +77,7 @@ class GitCommitHandler(IPythonHandler):
             # commit the changes
             print('git committing:', git_status)
             subprocess.check_output(['git', 'commit', '-m', '\"{}\n\nUpdated {}\"'.format(msg, filename),
-                                     fullpath_py, fullpath_ipynb, fullpath_req], cwd=code_dir)
+                                     fullpath_py, fullpath_ipynb], cwd=code_dir)
 
         git_branch = subprocess.check_output(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], cwd=code_dir,
                                              universal_newlines=True).strip()
