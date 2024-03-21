@@ -46,7 +46,18 @@ Install directly from pypi:
 
 ```
 pip install trains-jupyter-plugin
+```
 
+Or Install from source
+
+```
+#  change to source dir
+pip install .
+```
+
+Enable the extension
+
+```
 if [ ! -f ~/.jupyter/jupyter_notebook_config.py ]; then
    jupyter notebook --generate-config
 fi
