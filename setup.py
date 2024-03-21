@@ -1,13 +1,13 @@
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 from pathlib2 import Path
 
 
 here = Path(__file__).resolve().parent
 
 # Get the long description from the README file
-long_description = (here / 'README.md').read_text()
+long_description = (here / 'README.md').read_text(encoding='utf-8')
 
-requirements = (here / 'requirements.txt').read_text().splitlines()
+requirements = (here / 'requirements.txt').read_text(encoding='utf-8').splitlines()
 
 setup(
     name="trains-jupyter-plugin",
@@ -38,7 +38,7 @@ setup(
     ],
     keywords='trains jupyer notebook development machine deep learning version control machine-learning machinelearning '
              'deeplearning deep-learning experiment-manager experimentmanager',
-    packages=find_packages(exclude=['docs', 'tests']),
+    packages=find_namespace_packages(exclude=['docs', 'tests']),
     install_requires=requirements,
     package_data={'trains-jupyter-plugin': ['static/*']},
     include_package_data=True,
